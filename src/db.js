@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === 'development') {
   dotenv.config({ path: '/Users/topnotch/Desktop/Streaminions/streaminions-app/server/.env' });
 }
 
+console.log(process.env.MONGODB_URI);
 const db = mongoose.createConnection(process.env.MONGODB_URI, (err) => {
   if (err) throw err;
 

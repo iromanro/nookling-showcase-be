@@ -24,8 +24,8 @@ function discordLogin(req, res) {
       client_secret: "xRhj4nGbQqaDiCju_WZVULjD3d-T6CPD",
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: "https://www.nooklingshowcase.com/auth",
-      scope: "identify em ail",
+      redirect_uri: `${process.env.BASE_URL}/auth`,
+      scope: "identify email",
     }),
   }).then((response) => {
     findUser(response.data);

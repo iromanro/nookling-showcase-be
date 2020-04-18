@@ -46,9 +46,34 @@ function discordLogin(req, res) {
     }).then((discordUser) => {
       console.log("Discord user: ", discordUser.data.email)
 
-      res.status(200).send({
-        success: true,
-        message: "FOUND THE USER",
+      db.get().collection('users').findOne({ email: discordUser.data.email }, (userErr, user) => {
+        if (err) return res.status(404).send({ success: false, message: "Unable to find user!"})
+        
+        if (!user) {
+          const userDoc = {
+            username: discordUser.data.username,
+            discriminator: discordUser.data.discriminator,
+            email: discordUser.data.email,
+            avatar: discordLogin.data.avatar,
+            uuid: uuidv4(),
+          }
+
+          db.get().collection('users').insertOne(doc, (newUserErr, newUser) => {
+            if (err) return res.status(404).send({ success: false, message: "Unable to create new user!"})
+            const userJWT = {
+              uuid: newUser.ops[0].uuid,
+              username: newUser.ops[0].username,
+              discriminator: newUser.ops[0].discriminator,
+            }
+
+            let token = jwt.sign(userJWT, process.env.JWT_SECRET, { expiresIn: 60 * 60 * process.env.JWT_HOURS })
+            res.cookie('jwt', token)
+            res.status(200).send({
+              success: true,
+              jwt: token,
+            })
+          })
+        }
       })
       // db.get().collection('Users').findOne({ username: response.data.name }, (err, user) => {
       //   if (err) return res.status(500).send({ success: false, message: "Server error"})
@@ -117,21 +142,6 @@ function discordLogin(req, res) {
   }
 }
 
-function createDefault(req, res, id, token) {
-
-
-  db.get().collection('UserMinion').insertOne(minion, (err, minion) => {
-    if (err) return res.status(404).send({ success: 'false', message: 'Error creating minion!' });
-  });
-
-  db.get().collection('Commands').insertMany([subCommand, resubCommand, giftSubCommand, hostCommand, raidCommand, cheerCommand], (err, commands) => {
-    if (err) return res.status(404).send({ success: 'false', message: 'Error creating default commands!' });
-
-    return res.status(201).send({ success: true, jwt: token });
-  });
-}
-
 module.exports = {
-  discordLogin,
-  createDefault,
+  discordLogin,\
 };

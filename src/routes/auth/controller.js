@@ -48,7 +48,8 @@ function discordLogin(req, res) {
 
       db.get().collection('users').findOne({ email: discordUser.data.email }, (userErr, user) => {
         if (err) return res.status(404).send({ success: false, message: "Unable to find user!"})
-        
+        console.log("Foumd user: ", user)''
+
         if (!user) {
           const userDoc = {
             username: discordUser.data.username,
@@ -58,8 +59,9 @@ function discordLogin(req, res) {
             uuid: uuidv4(),
           }
 
-          db.get().collection('users').insertOne(doc, (newUserErr, newUser) => {
-            if (err) return res.status(404).send({ success: false, message: "Unable to create new user!"})
+          db.get().collection('users').insertOne(userDoc, (newUserErr, newUser) => {
+            if (newUserErr) return res.status(404).send({ success: false, message: "Unable to create new user!"})
+            
             const userJWT = {
               uuid: newUser.ops[0].uuid,
               username: newUser.ops[0].username,

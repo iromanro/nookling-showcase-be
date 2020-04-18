@@ -49,7 +49,7 @@ function discordLogin(req, res) {
       console.log("Discord user: ", discordUser.data.email)
 
       db.get().collection('users').findOne({ email: discordUser.data.email }, (userErr, user) => {
-        if (err) return res.status(404).send({ success: false, message: "Unable to find user!"})
+        if (userErr) return res.status(404).send({ success: false, message: "Unable to find user!"})
         console.log("Foumd user: ", user)
 
         if (!user) {

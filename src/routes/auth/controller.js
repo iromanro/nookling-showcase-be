@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 
 function discordLogin(req, res) {
   let code = req.body.code;
+  console.log("Code: ", code);
 
   axios({
     method: "POST",

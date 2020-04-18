@@ -31,6 +31,7 @@ function discordLogin(req, res) {
     findUser(response.data);
   }).catch((error) => {
     if (error.response.status === 400) {
+      console.log("error: ", error.response.data)
       return res.status(error.response.status).send({
         success: false,
         message: error.response.data.message,

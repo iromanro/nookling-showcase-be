@@ -26,22 +26,22 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  // console.log(allowedOrigins);
-  // if (allowedOrigins.includes(req.headers.origin)) {
-  //   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  //   res.setHeader('Access-Control-Allow-Credentials', true);
-  //   res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
-  // }
-  // console.log(res);
-  // console.log("Req: ", req);
-  // const origin = req.headers.origin;
-  // let originSet = false;
-  // if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
-  //   res.append('Access-Control-Allow-Origin', req.headers.origin);
-  //   originSet = true;
-  // }
-  //res.append('Access-Control-Allow-Origin', req.headers.origin);
-  //res.append('Access-Control-Allow-Credentials', true);
+  console.log(allowedOrigins);
+  if (allowedOrigins.includes(req.headers.origin)) {
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
+  }
+  console.log(res);
+  console.log("Req: ", req);
+  const origin = req.headers.origin;
+  let originSet = false;
+  if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
+    res.append('Access-Control-Allow-Origin', req.headers.origin);
+    originSet = true;
+  }
+  res.append('Access-Control-Allow-Origin', req.headers.origin);
+  res.append('Access-Control-Allow-Credentials', true);
   res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, UPDATE, OPTIONS, PATCH')
   res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')
   res.append('Content-Type', 'application/json')

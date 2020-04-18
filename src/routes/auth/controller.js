@@ -1,7 +1,7 @@
 // const express = require('express');
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const qa = require('query-string')
+const qs = require('query-string')
 const axios = require('axios');
 const uuidv4 = require('uuid/v4')
 const ObjectId = require('mongoose').Types.ObjectId

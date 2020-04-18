@@ -65,7 +65,7 @@ app.use(bodyParser.json({
   },
 }));
 
-app.use('/', routes);
+// app.use('/', routes);
 app.use('/api/v1/auth', auth);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

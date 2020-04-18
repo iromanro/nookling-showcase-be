@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 function discordLogin(req, res) {
-  let code = req.body;
+  let code = req;
   console.log("Code: ", code);
 
   axios({

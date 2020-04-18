@@ -51,19 +51,19 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(bodyParser.json({
-//   verify: (req, res, buf, encoding) => {
-//     //Check is hub signature is in the headers
-//     if (req.headers && req.headers['x-hub-signature']) {
-//       //Split the signature
-//       const xHub = req.headers['x-hub-signature'].split('=')
+app.use(bodyParser.json({
+  verify: (req, res, buf, encoding) => {
+    //Check is hub signature is in the headers
+    if (req.headers && req.headers['x-hub-signature']) {
+      //Split the signature
+      const xHub = req.headers['x-hub-signature'].split('=')
 
-//       //Get the hex for the signature from twitch and store it in the req
-//       req.twitch_hex = crypto.createHmac(xHub[0], process.env.SUB_SECRET).update(buf).digest('hex')
-//       req.twitch_signature = xHub[1];
-//     }
-//   },
-// }));
+      //Get the hex for the signature from twitch and store it in the req
+      req.twitch_hex = crypto.createHmac(xHub[0], process.env.SUB_SECRET).update(buf).digest('hex')
+      req.twitch_signature = xHub[1];
+    }
+  },
+}));
 
 // app.use('/', routes);
 app.use('/api/v1/auth', auth);

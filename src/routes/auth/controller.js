@@ -1,10 +1,11 @@
 // const express = require('express');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const qa = require('query-string')
 const axios = require('axios');
-const uuidv4 = require('uuid/v4');
-const ObjectId = require('mongoose').Types.ObjectId;
-const db = require('../../db.js');
+const uuidv4 = require('uuid/v4')
+const ObjectId = require('mongoose').Types.ObjectId
+const db = require('../../db.js')
 //const config = require('../../../config.js');
 
 if (process.env.NODE_ENV === 'development') {

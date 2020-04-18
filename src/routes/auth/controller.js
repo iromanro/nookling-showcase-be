@@ -50,7 +50,6 @@ function discordLogin(req, res) {
 
       db.get().collection('users').findOne({ email: discordUser.data.email }, (userErr, user) => {
         if (userErr) return res.status(404).send({ success: false, message: "Unable to find user!"})
-        console.log("Foumd user: ", user)
 
         if (!user) {
           const userDoc = {
@@ -76,6 +75,20 @@ function discordLogin(req, res) {
               success: true,
               jwt: token,
             })
+          })
+        } else {
+          console.log("User: ", user);
+          const userJWT = {
+            uuid: user.ops[0].uuid,
+            username: user.ops[0].username,
+            discriminator: user.ops[0].discriminator,
+          }
+
+          let token = jwt.sign(userJWT, process.env.JWT_SECRET, { expiresIn: 60 * 60 * process.env.JWT_HOURS })
+          res.cookie('jwt', token)
+          res.status(200).send({
+            success: true,
+            jwt: token,
           })
         }
       })

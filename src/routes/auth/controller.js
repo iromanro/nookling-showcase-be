@@ -1,5 +1,4 @@
 // const express = require('express');
-const request = require('request');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');

@@ -145,5 +145,5 @@ function discordLogin(req, res) {
 }
 
 module.exports = {
-  discordLogin,\
+  discordLogin,
 };

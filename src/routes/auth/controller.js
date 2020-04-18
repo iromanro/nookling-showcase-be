@@ -131,6 +131,6 @@ function createDefault(req, res, id, token) {
 }
 
 module.exports = {
-  twitchLogin,
+  discordLogin,
   createDefault,
 };

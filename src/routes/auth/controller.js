@@ -2,8 +2,8 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const qs = require('query-string')
-const axios = require('axios');
-import { v4 as uuidv4 } from 'uuid';
+const axios = require('axios')
+const { v4: uuidv4 } = require('uuid')
 const ObjectId = require('mongoose').Types.ObjectId
 const db = require('../../db.js')
 //const config = require('../../../config.js');

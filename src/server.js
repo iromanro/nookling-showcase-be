@@ -14,12 +14,20 @@ if (process.env.NODE_ENV === 'development') {
 const allowedOrigins = ['https://nookling-showcase-fe.herokuapp.com', 'https://www.nooklingshowcase.com']
 app.use(cors({
   origin: (origin, callback) => {
-    console.log("origin: ", origin);
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes(origin)) {
+      console.log("CORS IS OK");
       callback(null, true)
     } else {
+      console.log("CORS FAILED");
       callback(new Error('Not allowed by CORS'))
     }
+
+    // console.log("origin: ", origin);
+    // if (allowedOrigins.indexOf(origin) !== -1) {
+    //   callback(null, true)
+    // } else {
+    //   callback(new Error('Not allowed by CORS'))
+    // }
   },
   method: ['GET', 'PUT', 'POST', 'DELETE', 'UPDATE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Authorization', 'Origin', 'OK', 'X-Requested-With', 'Content-Type', 'Accept'],
@@ -28,11 +36,11 @@ app.use(cors({
 
 app.use((req, res, next) => {
   // console.log(allowedOrigins);
-  // if (allowedOrigins.includes(req.headers.origin)) {
-  //   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  //   res.setHeader('Access-Control-Allow-Credentials', true);
-  //   res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
-  // }
+  if (allowedOrigins.includes(req.headers.origin)) {
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
+  }
   // console.log(res.headers);
   // const origin = req.headers.origin;
   // console.log("Origin: ", origin);
@@ -42,10 +50,10 @@ app.use((req, res, next) => {
   //   originSet = true;
   // }
   //res.append('Access-Control-Allow-Origin', req.headers.origin);
-  // res.append('Access-Control-Allow-Credentials', true);
-  // res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, UPDATE, OPTIONS, PATCH')
-  // res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')
-  // res.append('Content-Type', 'application/json')
+  res.append('Access-Control-Allow-Credentials', true);
+  res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, UPDATE, OPTIONS, PATCH')
+  res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')
+  res.append('Content-Type', 'application/json')
 
   // next();
 });

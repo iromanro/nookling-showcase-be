@@ -47,7 +47,6 @@ app.use((req, res, next) => {
   //   originSet = true;
   // }
   //res.append('Access-Control-Allow-Origin', req.headers.origin);
-  res.append('Access-Control-Allow-Credentials', true);
   res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, UPDATE, OPTIONS, PATCH')
   res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')
   res.append('Content-Type', 'application/json')

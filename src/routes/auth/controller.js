@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const qs = require('query-string')
 const axios = require('axios');
-const uuidv4 = require('uuid/v4')
+import { v4 as uuidv4 } from 'uuid';
 const ObjectId = require('mongoose').Types.ObjectId
 const db = require('../../db.js')
 //const config = require('../../../config.js');

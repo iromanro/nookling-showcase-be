@@ -32,9 +32,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
   }
-  console.log(res);
-  console.log("Req: ", req);
+  console.log(res.headers);
   const origin = req.headers.origin;
+  console.log("Origin: ", origin);
   let originSet = false;
   if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
     res.append('Access-Control-Allow-Origin', req.headers.origin);

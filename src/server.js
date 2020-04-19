@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 const allowedOrigins = ['https://nookling-showcase-fe.herokuapp.com', 'https://www.nooklingshowcase.com']
 app.use(cors({
   origin: (origin, callback) => {
+    console.log("origin: ", origin);
     if (allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true)
     } else {

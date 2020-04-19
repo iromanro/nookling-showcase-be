@@ -15,10 +15,8 @@ const allowedOrigins = ['https://nookling-showcase-fe.herokuapp.com', 'https://w
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin)) {
-      console.log("CORS IS OK");
       callback(null, true)
     } else {
-      console.log("CORS FAILED");
       callback(new Error('Not allowed by CORS'))
     }
 
@@ -37,9 +35,8 @@ app.use(cors({
 app.use((req, res, next) => {
   // console.log(allowedOrigins);
   if (allowedOrigins.includes(req.headers.origin)) {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, OK, X-Requested-With, Content-Type, Accept');
+    console.log("CORS IS OK");
+    res.append('Access-Control-Allow-Origin', req.headers.origin)
   }
   // console.log(res.headers);
   // const origin = req.headers.origin;
@@ -55,7 +52,7 @@ app.use((req, res, next) => {
   res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')
   res.append('Content-Type', 'application/json')
 
-  // next();
+  next();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));

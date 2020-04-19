@@ -56,7 +56,7 @@ function discordLogin(req, res) {
             username: discordUser.data.username,
             discriminator: discordUser.data.discriminator,
             email: discordUser.data.email,
-            avatar: discordLogin.data.avatar,
+            avatar: discordUser.data.avatar,
             uuid: uuidv4(),
           }
 

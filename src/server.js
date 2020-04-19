@@ -28,7 +28,7 @@ app.use(cors({
     // }
   },
   method: ['GET', 'PUT', 'POST', 'DELETE', 'UPDATE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Authorization', 'Origin', 'OK', 'X-Requested-With', 'Content-Type', 'Accept'],
+  allowedHeaders: ['Authorization', 'Origin', 'OK', 'X-Requested-With', 'Content-Type', 'Accept', 'Access-Control-Allow-Origin'],
   credentials: true,
 }));
 
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   // console.log(allowedOrigins);
   if (allowedOrigins.includes(req.headers.origin)) {
     console.log("CORS IS OK");
-    res.append('Access-Control-Allow-Origin', req.headers.origin)
+    //res.append('Access-Control-Allow-Origin', req.headers.origin)
   }
   // console.log(res.headers);
   // const origin = req.headers.origin;

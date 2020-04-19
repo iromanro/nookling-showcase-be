@@ -79,9 +79,9 @@ function discordLogin(req, res) {
         } else {
           console.log("User: ", user);
           const userJWT = {
-            uuid: user.ops[0].uuid,
-            username: user.ops[0].username,
-            discriminator: user.ops[0].discriminator,
+            uuid: user.uuid,
+            username: user.username,
+            discriminator: user.discriminator,
           }
 
           let token = jwt.sign(userJWT, process.env.JWT_SECRET, { expiresIn: 60 * 60 * process.env.JWT_HOURS })

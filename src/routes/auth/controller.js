@@ -21,15 +21,16 @@ function discordLogin(req, res) {
     url: `https://discordapp.com/api/v6/oauth2/token`,
     headers: { "content-type": "application/x-www-form-urlencoded" },
     data: qs.stringify({
-      client_id: "700548602799325245",
-      client_secret: "xRhj4nGbQqaDiCju_WZVULjD3d-T6CPD",
+      client_id: process.env.DISCORD_CLIENT_ID,
+      client_secret: process.env.DISCORD_SECRET_ID,
       grant_type: "authorization_code",
       code: code,
       redirect_uri: `${process.env.BASE_URL}/auth`,
       scope: "identify email",
     }),
   }).then((response) => {
-    findUser(response.data);
+    console.log("WE AUTHING")
+    findUser(response.data)
   }).catch((error) => {
     if (error.response.status === 400) {
       console.log("error: ", error.response.data)

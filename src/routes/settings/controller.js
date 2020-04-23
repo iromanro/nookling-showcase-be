@@ -27,6 +27,7 @@ function getUserSettings(req, res) {
       twitter: user.twitter,
       instagram: user.instagram,
       switchFriendCode: user.switch_friend_code,
+      discordSync: user.discord_sync,
     }
 
     res.status(200).send({

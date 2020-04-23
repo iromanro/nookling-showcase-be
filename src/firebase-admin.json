@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "nookling-showcase",
+  "private_key_id": "e4c9a1c06323906ab085d16b176b03396d73afba",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDFk7+ZTfyCDMUz\niEhrCrl1qMJLl3wEqdbcp6Av4YnZI6Q9eXihOuWDmoAlVgm2xaN9Lk1UtLZUJyQV\nQ8+7VaRWUoFXLPbvbIUWkAvkXBr4UQNKLpa4P/lNpxnjt8ZkiEZuIi+NWCwo1Abi\n6/IEwE3yyw0gVes/QxFxKLlooMjGcVGCu9LZ2KWffWsFUY7On51vLk6jFZ8nxaNe\nSYjsD4WfFQf3NhbgkD6lZf2Bva5qek1OzXWn1GoNnKbrf07mV0RY/sRkp3n8QmvY\nZ2W538mgGdgpixieqdrD5EIsD4yTGpvAbps1udrQeDTRKjFY+hwliY26g0YL/hWT\nRGrW7hslAgMBAAECggEASg9mBJs9CaqryPNO4gD1H+uQWTGBZWYcij2zR/9s4p3/\nlKOR2i3vlnM1kck8fux6qhPPHO9YYRcC6Y2vsnMZ1Nm8becG8RxmjtyT+Jel7GrB\npu7rxEkGtFrs03UxwsFqVSIvXPYuJ2fC5RC4eZt0HIyMcRCDzATh5t7zEQsj924d\nJ4k34wHsyfOdcWGordzz8wU/AZGSealUoyM4FGaSh140cne/V69zYd5Hy8B0I59B\nqdHh+aM2bqy4GvZnD6tZSKxVkaS9szU0m9kSNjISG3uU/8pFir5fJTOgchtyOPEL\n44v0vkmQQqKuP7b3y1AzOzDfB25HCdctVXrbqGYcCQKBgQD6EUa9H898RhDU2SK8\nPQmFdiMzRWxqhoUHWVQbuqsKn+8iLgMLRwzb4uX3chUwg+1q3lTIXp6Y5tC6ykpa\nN+Iocer9ww3DmYZav1BU2FXqWqH4JurCia6QR2KTsWrnYLGrNYQT2IUvqbn49FFQ\na9Rmz36nKXhVJAJebZZeeQiKOwKBgQDKQ69SqnK04vSAnJzt4F9IGMs5+VfhX/T+\nA0BMaaiaR+YvpG6yUbnK6dUFJM9c6D6sMp4cZhBSZI9JERHroqgerKQKWLage0GK\nKDl++aD2M7banmfXT7xO42+ti0FUo6avbTfZT8JzIGBlEBWjO03dZoGtBOjcGtXF\nZWmCMXw6HwKBgQDMHI/lzPI5mKMiaP2eMh/0bMI8ljzxEk3A+tvZKltz96lj97SK\nXvsS+7gDan37NKP0Z/dB+WFwom3bGUTpMNYLdzh82toAPu7YYXH7Xv15pXKxL2rN\nUT5IC8xdiyIcK+O5QJxG6qODjQD8QMeiYfFj3ZeecA4FSLgaRU7IW/hpgwKBgQDB\nGe2AFop8d1DGmL6Zu+Q7iLA9IPftixbyi1gPm7AD2zC/u1STmcKvHp7o0kPGh1OO\nQqUAp9BdWPQS5eEd/aRT5K6X0ipI/GON6uk5eElbw/OGtESfIti82BX+sTwl+jdg\ns/zl02fpUbe1xK1jsXKdNQgIju9hc50zX6ZjTas0MQKBgQCnfxN+uWYYr8Han16H\nQfBpEzfRRAyuYK3C8SjjtHLtAHmK2xD4MjCfAC4wqaKs0mH9N5kEApm0Os14brw7\n+ncBrkc/D0/Z7AbMcsfQ9btn+GW4gan+C/LGgSbeFuN3T4pkK1h31vrBN3wV1+rH\nKvIusyHQTitiPquzNyPE60/UmQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-wrqeg@nookling-showcase.iam.gserviceaccount.com",
+  "client_id": "100220219798249048038",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-wrqeg%40nookling-showcase.iam.gserviceaccount.com"
+}

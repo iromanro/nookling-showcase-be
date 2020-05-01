@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const auth = require('./routes/auth/index.js');
 const settings = require('./routes/settings/index.js');
+const profile = require('./routes/profile/index.js');
+const post = require('./routes/post/index.js');
 
 const app = express();
 const router = express.Router();
@@ -73,5 +75,7 @@ app.use(bodyParser.json({
 // app.use('/', routes);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/settings', settings);
+app.use('/api/v1/profile', profile);
+app.use('/api/v1/post', post);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

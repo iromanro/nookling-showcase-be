@@ -12,15 +12,16 @@ var serviceAccount = require(`${process.env.GOOGLE_APPLICATION_CREDENTIALS}`);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://nookling-showcase.firebaseio.com"
-})
+  databaseURL: 'https://nookling-showcase.firebaseio.com',
+  storageBucket: process.env.STORAGE_BUCKET,
+});
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '/Users/topnotch/Desktop/Streaminions/streaminions-app/server/.env' });
 }
 
 function discordLogin(req, res) {
-  let code = req.body.code;
+  const code = req.body.code;
 
   axios({
     method: "POST",
@@ -58,42 +59,46 @@ function discordLogin(req, res) {
           const userDoc = {
             username: discordUser.data.username,
             discriminator: discordUser.data.discriminator,
+            display_name: "",
             email: discordUser.data.email,
             avatar: discordUser.data.avatar,
             uuid: uuidv4(),
+            twitter: '',
+            instagram: '',
+            switch_friend_code: '',
             discord_sync: true,
             hide_discord: true,
-          }
+          };
 
           db.get().collection('users').insertOne(userDoc, (newUserErr, newUser) => {
-            if (newUserErr) return res.status(404).send({ success: false, message: "Unable to create new user!"})
-            
+            if (newUserErr) return res.status(404).send({ success: false, message: 'Unable to create new user!'})
+
             const userJWT = {
               uuid: newUser.ops[0].uuid,
               username: newUser.ops[0].username,
               discriminator: newUser.ops[0].discriminator,
-            }
+            };
 
             let token = jwt.sign(userJWT, process.env.JWT_SECRET, { expiresIn: 60 * 60 * process.env.JWT_HOURS })
-            res.cookie('jwt', token)
+            res.cookie('jwt', token);
             res.status(200).send({
               success: true,
               jwt: token,
-            })
-          })
+            });
+          });
         } else {
           const userJWT = {
             uuid: user.uuid,
             username: user.username,
             discriminator: user.discriminator,
-          }
+          };
 
           let token = jwt.sign(userJWT, process.env.JWT_SECRET, { expiresIn: 60 * 60 * process.env.JWT_HOURS })
-          res.cookie('jwt', token)
+          res.cookie('jwt', token);
           res.status(200).send({
             success: true,
             jwt: token,
-          })
+          });
         }
       })
     }).catch((error) => {
@@ -115,10 +120,14 @@ function googleLogin(req, res) {
         const userDoc = {
           username: "",
           discriminator: "",
+          display_name: "",
           email: req.body.email,
           avatar: null,
           uuid: uuidv4(),
           uid,
+          twitter: "",
+          instagram: "",
+          switch_friend_code: "",
           discord_sync: false,
           hide_discord: true,
           google_sync: true,
@@ -172,10 +181,14 @@ function emailRegistration(req, res) {
     const userDoc = {
       username: "",
       discriminator: "",
+      display_name: "",
       email: req.body.email,
       avatar: null,
       uuid: uuidv4(),
       uid,
+      twitter: "",
+      instagram: "",
+      switch_friend_code: "",
       discord_sync: false,
       hide_discord: true,
       email_user: true

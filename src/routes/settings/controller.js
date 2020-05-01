@@ -26,6 +26,7 @@ function getUserSettings(req, res) {
       displayName: user.display_name,
       twitter: user.twitter,
       instagram: user.instagram,
+      twitch: user.twitch,
       switchFriendCode: user.switch_friend_code,
       discordSync: user.discord_sync,
     }
@@ -50,6 +51,7 @@ function updateUserSettings(req, res) {
           hide_discord: req.body.settings.hideDiscord,
           twitter: req.body.settings.twitter,
           instagram: req.body.settings.instagram,
+          twitch: req.body.settings.twitch,
           switch_friend_code: req.body.settings.switchFriendCode,
         },
       },
@@ -65,7 +67,9 @@ function updateUserSettings(req, res) {
           displayName: updatedSettings.value.display_name,
           twitter: updatedSettings.value.twitter,
           instagram: updatedSettings.value.instagram,
+          twitch: updatedSettings.value.twitch,
           switchFriendCode: updatedSettings.value.switch_friend_code,
+          discordSync: updatedSettings.value.discord_sync,
         }
 
         res.status(200).send({

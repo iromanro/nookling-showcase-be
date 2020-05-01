@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '/Users/topnotch/Desktop/Streaminions/streaminions-app/server/.env' });
 }
 
-const allowedOrigins = ['https://nookling-showcase-fe.herokuapp.com', 'https://www.nooklingshowcase.com', 'http://localhost:3000']
+const allowedOrigins = ['https://nookling-showcase-fe.herokuapp.com', 'https://www.nooklingshowcase.com', 'http://localhost:3000'];
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin)) {

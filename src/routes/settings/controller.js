@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 // const express = require('express');
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
@@ -13,12 +14,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 function getUserSettings(req, res) {
-  console.log(req.decoded.uuid);
-
   db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
-    if (userErr) return res.status(404).send({ success: false, message: "Unable to find user!"})
+    if (userErr) return res.status(404).send({ success: false, message: 'Unable to find user!' });
 
-    let settings = {
+    const settings = {
       username: user.username,
       discriminator: user.discriminator,
       hideDiscord: user.hide_discord,
@@ -29,20 +28,20 @@ function getUserSettings(req, res) {
       twitch: user.twitch,
       switchFriendCode: user.switch_friend_code,
       discordSync: user.discord_sync,
-    }
+    };
 
     res.status(200).send({
       success: true,
       settings,
-    })
-  })
+    });
+  });
 }
 
 function updateUserSettings(req, res) {
   db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
-    if (userErr) return res.status(404).send({ success: false, message: "Unable to find user!"})
+    if (userErr) return res.status(404).send({ success: false, message: 'Unable to find user!' });
 
-    console.log(req.body.settings)
+    console.log(req.body.settings);
 
     db.get().collection('users').findOneAndUpdate({ uuid: req.decoded.uuid },
       {
@@ -57,9 +56,9 @@ function updateUserSettings(req, res) {
       },
       { returnOriginal: false },
       (updatedSettingsErr, updatedSettings) => {
-        if (updatedSettingsErr) return res.status(404).send({ success: false, message: "Error updating settings!"})
+        if (updatedSettingsErr) return res.status(404).send({ success: false, message: 'Error updating settings!' });
 
-        let settings = {
+        const settings = {
           username: updatedSettings.value.username,
           discriminator: updatedSettings.value.discriminator,
           hideDiscord: updatedSettings.value.hide_discord,
@@ -70,17 +69,17 @@ function updateUserSettings(req, res) {
           twitch: updatedSettings.value.twitch,
           switchFriendCode: updatedSettings.value.switch_friend_code,
           discordSync: updatedSettings.value.discord_sync,
-        }
+        };
 
         res.status(200).send({
           success: true,
           settings,
-        })
-      })
-  })
+        });
+      });
+  });
 }
 
 module.exports = {
   getUserSettings,
-  updateUserSettings
+  updateUserSettings,
 };

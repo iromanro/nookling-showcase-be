@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const auth = require('./routes/auth/index.js');
 const settings = require('./routes/settings/index.js');
 const profile = require('./routes/profile/index.js');
-const post = require('./routes/post/index.js');
+const design = require('./routes/design/index.js');
+const search = require('./routes/search/index.js');
 
 const app = express();
 const router = express.Router();
@@ -20,7 +21,7 @@ app.use(cors({
     if (allowedOrigins.includes(origin)) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
 
     // console.log("origin: ", origin);
@@ -60,13 +61,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json({
   verify: (req, res, buf, encoding) => {
-    //Check is hub signature is in the headers
+    // Check is hub signature is in the headers
     if (req.headers && req.headers['x-hub-signature']) {
-      //Split the signature
+      // Split the signature
       const xHub = req.headers['x-hub-signature'].split('=')
 
-      //Get the hex for the signature from twitch and store it in the req
-      req.twitch_hex = crypto.createHmac(xHub[0], process.env.SUB_SECRET).update(buf).digest('hex')
+      // Get the hex for the signature from twitch and store it in the req
+      req.twitch_hex = crypto.createHmac(xHub[0], process.env.SUB_SECRET).update(buf).digest('hex');
       req.twitch_signature = xHub[1];
     }
   },
@@ -76,6 +77,7 @@ app.use(bodyParser.json({
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/settings', settings);
 app.use('/api/v1/profile', profile);
-app.use('/api/v1/post', post);
+app.use('/api/v1/design', design);
+app.use('/api/v1/search', search);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

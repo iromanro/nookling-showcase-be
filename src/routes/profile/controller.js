@@ -4,15 +4,8 @@
 /* eslint-disable no-labels */
 /* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
-// const express = require('express');
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
-const qs = require('query-string')
-const axios = require('axios')
-const { v4: uuidv4 } = require('uuid')
-const ObjectId = require('mongoose').Types.ObjectId
-const db = require('../../db.js')
-//const config = require('../../../config.js');
+// const express = require('express')
+const db = require('../../db.js');
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '/Users/topnotch/Desktop/Streaminions/streaminions-app/server/.env' });

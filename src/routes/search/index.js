@@ -1,9 +1,10 @@
 const express = require('express');
-
-const router = express.Router();
 const controller = require('./controller');
 const authenticate = require('../../middlewear/authenticate');
 
-router.post('/', authenticate, controller.createPost);
+const router = express.Router();
+
+// router.post('/', authenticate, controller.createDesign);
+router.get('/item/:term', authenticate, controller.findItem);
 
 module.exports = router;

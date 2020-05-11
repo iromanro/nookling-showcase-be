@@ -39,7 +39,7 @@ app.use(cors({
 app.use((req, res, next) => {
   // console.log(allowedOrigins);
   if (allowedOrigins.includes(req.headers.origin)) {
-    //res.append('Access-Control-Allow-Origin', req.headers.origin)
+    res.append('Access-Control-Allow-Origin', req.headers.origin);
   }
   // console.log(res.headers);
   // const origin = req.headers.origin;

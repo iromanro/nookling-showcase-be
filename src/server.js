@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   // console.log(allowedOrigins);
   const allowed = false;
   if (allowedOrigins.includes(req.headers.origin)) {
+    console.log("WE ALLOWED")
     res.append('Access-Control-Allow-Origin', req.headers.origin);
     allowed = true;
   }
@@ -48,6 +49,7 @@ app.use((req, res, next) => {
   // console.log("Origin: ", origin);
   let originSet = false;
   if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
+    console.log("WE ALLOWED AGAIN")
     res.append('Access-Control-Allow-Origin', req.headers.origin);
     originSet = true;
   }

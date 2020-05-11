@@ -38,7 +38,7 @@ app.use(cors({
 
 app.use((req, res, next) => {
   // console.log(allowedOrigins);
-  const allowed = false;
+  let allowed = false;
   if (allowedOrigins.includes(req.headers.origin)) {
     console.log("WE ALLOWED")
     res.append('Access-Control-Allow-Origin', req.headers.origin);
@@ -47,12 +47,12 @@ app.use((req, res, next) => {
   // console.log(res.headers);
   // const origin = req.headers.origin;
   // console.log("Origin: ", origin);
-  let originSet = false;
-  if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
-    console.log("WE ALLOWED AGAIN")
-    res.append('Access-Control-Allow-Origin', req.headers.origin);
-    originSet = true;
-  }
+  // let originSet = false;
+  // if (allowedOrigins.indexOf(req.headers.origin) !== -1 && !originSet) {
+  //   console.log("WE ALLOWED AGAIN")
+  //   res.append('Access-Control-Allow-Origin', req.headers.origin);
+  //   originSet = true;
+  // }
   // res.append('Access-Control-Allow-Origin', req.headers.origin);
   res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, UPDATE, OPTIONS, PATCH')
   res.append('Access-Control-Allow-Headers', 'Authorization, Origin, OK, X-Requested-With, Content-Type, Accept')

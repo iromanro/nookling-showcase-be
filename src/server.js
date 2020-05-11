@@ -38,12 +38,12 @@ app.use(cors({
 
 app.use((req, res, next) => {
   // console.log(allowedOrigins);
-  let allowed = false;
-  if (allowedOrigins.includes(req.headers.origin)) {
-    console.log("WE ALLOWED")
-    res.append('Access-Control-Allow-Origin', req.headers.origin);
-    allowed = true;
-  }
+  // let allowed = false;
+  // if (allowedOrigins.includes(req.headers.origin)) {
+  //   console.log("WE ALLOWED")
+  //   res.append('Access-Control-Allow-Origin', req.headers.origin);
+  //   allowed = true;
+  // }
   // console.log(res.headers);
   // const origin = req.headers.origin;
   // console.log("Origin: ", origin);

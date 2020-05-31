@@ -35,6 +35,7 @@ function getUserProfile(req, res) {
       {
         $unwind: '$userCreations',
       },
+      { $match: { 'userCreations.archived': false } },
       {
         $set: {
           'userCreations.display_name': '$display_name',

@@ -47,6 +47,7 @@ function updateUserSettings(req, res) {
       {
         $set: {
           display_name: req.body.settings.displayName,
+          avatar: req.body.settings.avatar,
           hide_discord: req.body.settings.hideDiscord,
           twitter: req.body.settings.twitter,
           instagram: req.body.settings.instagram,

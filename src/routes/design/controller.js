@@ -23,6 +23,7 @@ function createDesign(req, res) {
       allow_contributions: req.body.allowContributions,
       furniture: [],
       likes: 0,
+      archived: false,
     };
 
     db.get().collection('creations').insertOne(post, (postErr, newPost) => {
@@ -32,6 +33,120 @@ function createDesign(req, res) {
         success: true,
         postId: newPost.ops[0].id,
       });
+    });
+  });
+}
+
+function getDesignEdit(req, res) {
+  db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
+    if (userErr) return res.status(404).send({ success: false, message: 'User not found!' });
+
+    db.get().collection('creations').findOne({ uuid: req.params.uuid, archived: false }, (creationErr, creation) => {
+      if (creationErr) return res.status(404).send({ success: false, message: 'Design not found!' });
+
+      if (!creation) {
+        res.status(404).send({
+          success: false,
+          message: 'Post not found',
+        });
+      } else if (user.uuid === creation.creator) {
+        const post = {
+          uuid: creation.uuid,
+          designName: creation.design_name,
+          description: creation.description,
+          designType: creation.design_type,
+          designTags: creation.design_tags,
+          allowContribution: creation.allow_contributions,
+          images: creation.images,
+        };
+
+        res.status(200).send({
+          success: true,
+          design: post,
+        });
+      } else {
+        res.status(403).send({
+          success: false,
+          message: 'Not allowed',
+        });
+      }
+    });
+  });
+}
+
+function completeDesignUpdate(req, res, uuid) {
+  console.log("COmplete req: ", req.body.allowContributions);
+
+  db.get().collection('creations').findOneAndUpdate({ uuid: req.params.uuid },
+    {
+      $set: {
+        design_name: req.body.name,
+        description: req.body.description,
+        design_tags: req.body.tags,
+        allow_contributions: req.body.allowContributions,
+        images: req.body.images,
+      },
+    },
+    { returnOriginal: false },
+    () => {
+      res.status(200).send({
+        success: true,
+        postId: uuid,
+      });
+    });
+}
+
+function updateDesign(req, res) {
+  db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
+    if (userErr) return res.status(404).send({ success: false, message: 'User not found!' });
+
+    db.get().collection('creations').findOne({ uuid: req.params.uuid, archived: false }, (creationErr, creation) => {
+      if (creationErr) return res.status(404).send({ success: false, message: 'Design not found!' });
+
+      if (!creation) {
+        res.status(404).send({
+          success: false,
+          message: 'Post not found',
+        });
+      } else if (user.uuid === creation.creator) {
+        completeDesignUpdate(req, res, creation.uuid);
+      } else {
+        res.status(403).send({
+          success: false,
+          message: 'Not allowed',
+        });
+      }
+    });
+  });
+}
+
+function deleteDesign(req, res) {
+  db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
+    if (userErr) return res.status(404).send({ success: false, message: 'User not found!' });
+
+    db.get().collection('creations').findOne({ uuid: req.params.uuid }, (creationErr, creation) => {
+      if (creationErr) return res.status(404).send({ success: false, message: 'Design not found!' });
+
+      if (user.uuid === creation.creator) {
+        db.get().collection('creations').findOneAndUpdate({ uuid: req.params.uuid },
+          {
+            $set: {
+              archived: true,
+            },
+          },
+          { returnOriginal: false },
+          () => {
+            res.status(200).send({
+              success: true,
+              message: 'Post deleted successfully!',
+            });
+          });
+      } else {
+        res.status(403).send({
+          success: false,
+          message: 'Not allowed',
+        });
+      }
     });
   });
 }
@@ -54,7 +169,7 @@ function getDesign(req, res) {
   }
 
   db.get().collection('creations').aggregate([
-    { $match: { uuid } },
+    { $match: { uuid, archived: false } },
     {
       $lookup: {
         from: 'users',
@@ -108,6 +223,7 @@ function getDesign(req, res) {
     },
   ]).toArray((resultsErr, results) => {
     if (resultsErr) return res.status(404).send({ success: false, message: 'User not found!' });
+    if (results.length === 0) return res.status(404).send({ success: false, message: 'Design not found!' });
 
     db.get().collection('likes').findOne({ userId: userUuid, designId: results[0].uuid }, (likeErr, like) => {
       let userLiked = false;
@@ -147,7 +263,7 @@ function likeDesign(req, res) {
   db.get().collection('users').findOne({ uuid: req.decoded.uuid }, (userErr, user) => {
     if (userErr) return res.status(404).send({ success: false, message: 'User not found!' });
 
-    db.get().collection('creations').findOne({ uuid }, (creationErr, creation) => {
+    db.get().collection('creations').findOne({ uuid, archived: false }, (creationErr, creation) => {
       if (creationErr) return res.status(404).send({ success: false, message: 'Design not found!' });
 
       db.get().collection('likes').find({ designId: creation.uuid }).toArray((designLikesErr, designLikes) => {
@@ -185,7 +301,7 @@ function likeDesign(req, res) {
 }
 
 function addItem(req, res) {
-  db.get().collection('creations').findOne({ uuid: req.params.uuid }, (creationErr, creation) => {
+  db.get().collection('creations').findOne({ uuid: req.params.uuid, archived: false }, (creationErr, creation) => {
     if (creationErr) return res.status(404).send({ success: false, message: 'Could not find that design!' });
 
     let canAdd = false;
@@ -253,14 +369,14 @@ function addItem(req, res) {
     } else {
       return res.status(405).send({
         success: false,
-        error: 'Permission denied!',
+        message: 'Permission denied!',
       });
     }
   });
 }
 
 function removeItem(req, res) {
-  db.get().collection('creations').findOne({ uuid: req.params.uuid }, (creationErr, creation) => {
+  db.get().collection('creations').findOne({ uuid: req.params.uuid, archived: false }, (creationErr, creation) => {
     if (creationErr) return res.status(404).send({ success: false, message: 'Could not find that design!' });
 
     let canRemove = false;
@@ -332,7 +448,7 @@ function removeItem(req, res) {
     } else {
       return res.status(405).send({
         success: false,
-        error: 'Permission denied!',
+        message: 'Permission denied!',
       });
     }
   });
@@ -340,6 +456,9 @@ function removeItem(req, res) {
 
 module.exports = {
   createDesign,
+  getDesignEdit,
+  updateDesign,
+  deleteDesign,
   getDesign,
   likeDesign,
   addItem,

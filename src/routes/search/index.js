@@ -5,6 +5,7 @@ const authenticate = require('../../middlewear/authenticate');
 const router = express.Router();
 
 // router.post('/', authenticate, controller.createDesign);
+router.get('/', controller.findDesigns);
 router.get('/item/:term', authenticate, controller.findItem);
 
 module.exports = router;
